@@ -1,0 +1,6 @@
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+
+CREATE DATABASE mob;
+
+\connect mob
+CREATE EXTENSION IF NOT EXISTS pgcrypto;

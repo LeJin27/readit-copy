@@ -1,0 +1,16 @@
+{
+    "devDependencies": {
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
+    "concurrently": "^9.1.2",
+    "jose": "^4.14.6",
+    "next": "15.3.1",
+    "typescript": "^5.8.3"
+  },
+  "scripts": {
+    "install-microservices": "cd ../Microservices && npm run installs",
+    "install": "npm run install-microservices && npm run install-apps",
+    "dev": "concurrently \"npm run dev-auth\" \"npm run dev-ticket\" \"npm run dev-vehicle\" \"npm run dev-permit\" \"npm run dev-lot\" \"npm run dev-app\" \"npm run dev-email\" \"npm run dev-stripe\" \"npm run dev-webhook\"",
+    "postgres": "docker exec -it dd-mm-pg psql -U postgres -d dev"
+  }
+}

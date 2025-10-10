@@ -1,0 +1,21 @@
+{
+  "name": "microservice-runner",
+  "version": "1.0.0",
+  "description": "Runs all dd-mm microservices",
+  "author": "Jin Le",
+  "license": "UNLICENSED",
+  "repository": "none",
+  "scripts": {
+    "dev-auth": "cd AuthService && npm run dev",
+    "dev-mob": "cd MobService && npm run dev",
+    "dev": "concurrently \"npm run dev-auth\" \"npm run dev-mob\" "
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.18",
+    "@types/istanbul-lib-coverage": "^2.0.6",
+    "@types/node": "^22.15.29",
+    "concurrently": "^9.1.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
+}
