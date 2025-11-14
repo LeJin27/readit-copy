@@ -6,6 +6,7 @@ import supertest from "supertest";
 import * as http from "http";
 import app from "../src/app";
 import * as db from "./db";
+import { Credentials } from "../src/auth";
 
 let server: http.Server<
   typeof http.IncomingMessage,
@@ -40,7 +41,7 @@ const validDaveCredentials = {
   email: "dave@books.com",
   password: "davemember",
 };
-async function getLoginAccessToken(credentials: Credential) {
+async function getLoginAccessToken(credentials: Credentials) {
   const res = await supertest(server)
     .post("/api/v0/auth/login")
     .send(credentials)
