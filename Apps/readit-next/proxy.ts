@@ -14,6 +14,10 @@ export default async function  proxy(req: NextRequest) {
       const cookie = req.cookies.get('session')?.value;
       console.log(cookie)
       //await new AuthService().validJwt(cookie);
+      // delete later
+      if (!isPublic) {
+        return NextResponse.redirect(new URL('/login', req.url))
+      }
     } catch {
       if (!isPublic) {
         return NextResponse.redirect(new URL('/login', req.url))

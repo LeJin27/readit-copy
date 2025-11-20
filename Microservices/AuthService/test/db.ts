@@ -1,14 +1,8 @@
 
-import dotenv from 'dotenv'
-dotenv.config()
 
 import { Pool } from 'pg'
 import * as fs from 'fs'
 
-
-// console.log('databse show:',process.env.POSTGRES_DB)
-// console.log('user show:',process.env.POSTGRES_USER)
-// console.log('password show:',process.env.POSTGRES_PASSWORD)
 const pool = new Pool({
   host: 'localhost',
   port: 5432,
@@ -41,8 +35,8 @@ const run = async (file: string) => {
 }
 
 const reset = async () => {
-  await run('sql/schema.sql')
-  await run('sql/test.sql')
+  await run('sql/test_schema.sql')
+  await run('sql/test_data.sql')
 }
 
 const shutdown = () => {

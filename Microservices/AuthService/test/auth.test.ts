@@ -1,5 +1,4 @@
-import dotenv from "dotenv";
-dotenv.config();
+
 
 import { test, beforeAll, afterAll, beforeEach, expect } from "vitest";
 import supertest from "supertest";

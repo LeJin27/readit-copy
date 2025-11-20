@@ -1,4 +1,4 @@
-\connect member
+\connect member_db
 
 DELETE FROM member;
 INSERT INTO member(id, data) 

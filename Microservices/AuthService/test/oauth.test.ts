@@ -1,10 +1,9 @@
-import dotenv from "dotenv";
-dotenv.config();
-
 import { test, beforeAll, afterAll, beforeEach, expect, vi } from "vitest";
 import supertest from "supertest";
 import * as http from "http";
 import * as db from "./db";
+import dotenv from "dotenv";
+dotenv.config()
 
 let server: http.Server<
   typeof http.IncomingMessage,
