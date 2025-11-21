@@ -14,12 +14,31 @@ import {
   TextInput,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { upperFirst, useToggle } from "@mantine/hooks";
+import { upperFirst } from "@mantine/hooks";
+import { loginAction } from "../action";
+import { useRouter } from "next/navigation";
 //import { GoogleButton } from './GoogleButton';
 //import { TwitterButton } from './TwitterButton';
 
 export function AuthenticationForm(props: PaperProps) {
-  const [type, toggle] = useToggle(["login", "register"]);
+  const router = useRouter();
+  const type = "login";
+  const handleLogin = async () => {
+    console.log("test click");
+    const formValues = form.getValues();
+    console.log(formValues);
+    const credentials = {
+      email: formValues.email,
+      password: formValues.password,
+    };
+
+    const validUser = await loginAction(credentials);
+    if (validUser) {
+      console.log("Redirecting after successful login");
+      router.push("/");
+    }
+  };
+
   const form = useForm({
     initialValues: {
       email: "",
@@ -40,23 +59,11 @@ export function AuthenticationForm(props: PaperProps) {
   return (
     <Paper radius="md" className="max-w-1/4 mx-auto p-5" withBorder {...props}>
       <Text size="lg" fw={500}>
-        Welcome to Mantine, {type} with
+        Welcome to Readit, Login with
       </Text>
 
       <form onSubmit={form.onSubmit(() => {})}>
         <Stack>
-          {type === "register" && (
-            <TextInput
-              label="Name"
-              placeholder="Your name"
-              value={form.values.name}
-              onChange={(event) =>
-                form.setFieldValue("name", event.currentTarget.value)
-              }
-              radius="md"
-            />
-          )}
-
           <TextInput
             required
             label="Email"
@@ -83,31 +90,13 @@ export function AuthenticationForm(props: PaperProps) {
             }
             radius="md"
           />
-
-          {type === "register" && (
-            <Checkbox
-              label="I accept terms and conditions"
-              checked={form.values.terms}
-              onChange={(event) =>
-                form.setFieldValue("terms", event.currentTarget.checked)
-              }
-            />
-          )}
         </Stack>
 
         <Group justify="space-between" mt="xl">
-          <Anchor
-            component="button"
-            type="button"
-            c="dimmed"
-            onClick={() => toggle()}
-            size="xs"
-          >
-            {type === "register"
-              ? "Already have an account? Login"
-              : "Don't have an account? Register"}
+          <Anchor component="button" type="button" c="dimmed" size="xs">
+            Already have an account? {type.toLowerCase()}
           </Anchor>
-          <Button type="submit" radius="xl">
+          <Button type="submit" radius="xl" onClick={() => handleLogin()}>
             {upperFirst(type)}
           </Button>
         </Group>

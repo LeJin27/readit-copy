@@ -8,11 +8,14 @@ import {
   Title,
 } from "@mantine/core";
 import Image from "next/image";
+import { AppHeader } from "./components/appheader";
 
 export default function Home() {
   return (
     <AppShell header={{ height: 60 }} padding="md">
       <AppShellHeader>
+        <AppHeader />
+
         <Group className="h-full px-md">
           <Image
             className="dark:invert"
@@ -24,26 +27,7 @@ export default function Home() {
         </Group>
       </AppShellHeader>
       <AppShellMain>
-        <Title className="text-center mt-20">
-          Welcome to{" "}
-          <Text
-            inherit
-            variant="gradient"
-            component="span"
-            gradient={{ from: "pink", to: "yellow" }}
-          >
-            Mantine
-          </Text>{" "}
-          +
-          <Text
-            inherit
-            variant="gradient"
-            component="span"
-            gradient={{ from: "blue", to: "green" }}
-          >
-            TailwindCSS
-          </Text>
-        </Title>
+        <Title className="text-center mt-20">Welcome to test</Title>
         <Text
           className="text-center text-gray-700 dark:text-gray-300 max-w-[500px] mx-auto mt-xl"
           ta="center"

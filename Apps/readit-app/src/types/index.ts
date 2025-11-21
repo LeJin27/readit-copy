@@ -8,3 +8,14 @@ export interface Credentials {
   email: email;
   password: string;
 }
+
+export interface Authenticated {
+  email: email;
+  name: string;
+  accessToken: string;
+}
+
+export interface User {
+  email: email;
+  name: string;
+}
