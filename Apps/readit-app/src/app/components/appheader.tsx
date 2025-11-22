@@ -5,29 +5,38 @@ import {
   IconCirclePlusFilled,
   IconCookieManFilled,
 } from "@tabler/icons-react";
-import { Autocomplete, Box, Burger, Group } from "@mantine/core";
+import { Autocomplete, Box, Burger, Button, Group } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
+import { cookies } from "next/headers";
 
-const appButtons = [
-  { link: "/profile", label: "Profile", icon: <IconCookieManFilled /> },
-  { link: "/createpost", label: "Create Post", icon: <IconCirclePlusFilled /> },
-];
+
+  const handleSignout = async() =>{ 
+    const cookieStore = await cookies();
+    cookieStore.delete('session')
+  }
+  const appButtons = [
+    { key: "profile", link: "/profile", label: "Profile", icon: <IconCookieManFilled /> },
+    { key: "signout", link: "/signout", label: "Signout", onClick: handleSignout},
+    { key: "createpost", link: "/createpost", label: "Create Post", icon: <IconCirclePlusFilled /> },
+  ];
+
 
 export function AppHeader() {
   const [opened, { toggle }] = useDisclosure(false);
 
+
   const items = (
     <Box className="flex items-center gap-5">
-      {appButtons.map((link) => (
+      {appButtons.map((menu) => (
         <a
-          key={link.label}
-          href={link.link}
+          key={menu.key}
+          href={menu.link}
           onClick={(event) => event.preventDefault()}
         >
-          <Box className="flex">
-            {link.icon}
-            {link.label}
-          </Box>
+          <Button className="flex" {...(menu.onClick && { onClick: menu.onClick })}>
+            {menu.icon}
+            {menu.label}
+          </Button>
         </a>
       ))}
     </Box>
