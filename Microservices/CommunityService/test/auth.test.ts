@@ -27,6 +27,7 @@ afterAll(() => {
 
 
 test('should resolve with user data when fetch returns 200', async () => {
+  // replaces featch with mocked json
   global.fetch = vi.fn().mockResolvedValueOnce({
     status: 200,
     json: () =>

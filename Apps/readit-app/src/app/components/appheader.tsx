@@ -7,22 +7,26 @@ import {
 } from "@tabler/icons-react";
 import { Autocomplete, Box, Burger, Button, Group } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { cookies } from "next/headers";
+import { logoutAction } from "../login/action";
+import { useRouter } from "next/navigation";
 
+
+
+export function AppHeader() {
+  const [opened, { toggle }] = useDisclosure(false);
+  const router = useRouter();
 
   const handleSignout = async() =>{ 
-    const cookieStore = await cookies();
-    cookieStore.delete('session')
+    await logoutAction();
+    router.push("/login")
+
+
   }
   const appButtons = [
     { key: "profile", link: "/profile", label: "Profile", icon: <IconCookieManFilled /> },
     { key: "signout", link: "/signout", label: "Signout", onClick: handleSignout},
     { key: "createpost", link: "/createpost", label: "Create Post", icon: <IconCirclePlusFilled /> },
   ];
-
-
-export function AppHeader() {
-  const [opened, { toggle }] = useDisclosure(false);
 
 
   const items = (

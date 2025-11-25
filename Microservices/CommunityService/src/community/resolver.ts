@@ -7,18 +7,18 @@ import {
   Ctx,
   Int
 } from "type-graphql"
-import { Mob, NewMob } from "./schema";
 import { Request } from "express"
 import { MobService } from "./service";
 
 
 @Resolver()
-export class MobResolver {
+export class CommunityResolver {
 
   @Query(() => String)
   dummy(): string {
     return "OK";
   }
+  /*
 
   @Authorized('user')
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -76,6 +76,7 @@ export class MobResolver {
     const mobRes = await new MobService().updateMob(mobId, input);
     return mobRes;
   }
+    */
 }
 
 
