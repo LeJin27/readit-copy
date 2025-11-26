@@ -6,8 +6,8 @@ dotenv.config()
 
 const pool = new Pool({
   host: 'localhost',
-  port: 5432,
-  database: process.env.POSTGRES_DB || 'testdb',
+  port: 5433,
+  database: process.env.POSTGRES_DB,
   user: process.env.POSTGRES_USER,
   password: process.env.POSTGRES_PASSWORD,
 })
@@ -36,8 +36,8 @@ const run = async (file: string) => {
 }
 
 const reset = async () => {
-  await run('sql/schema.sql')
-  await run('sql/test.sql')
+  await run('sql/test_schema.sql')
+  await run('sql/test_data.sql')
 }
 
 const shutdown = () => {

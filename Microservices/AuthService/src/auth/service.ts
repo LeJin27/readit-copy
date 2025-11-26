@@ -33,6 +33,21 @@ export function generateToken(userId: UUID, text = ""): midt {
   return jwt.sign({ id: userId }, JWT_SECRET + text, JWT_OPTIONS);
 }
 
+export function convertStringRolesToArray(rolesString : string) : string[] {
+  const rawRoles = rolesString;
+  let roles: string[];
+  if (Array.isArray(rawRoles)) {
+    roles = rawRoles;
+  } else if (typeof rawRoles === "string") {
+    roles = JSON.parse(rawRoles);
+  } else {
+    roles = [];
+  }
+  return roles
+
+
+}
+
 export class AuthService {
   public async check(token: string, scopes?: string[]): Promise<SessionUser> {
     try {
@@ -45,7 +60,9 @@ export class AuthService {
       };
       const { rows } = await pool.query(query);
       if (rows.length === 1) {
-        const decodedUser = { id: rows[0].id, roles: rows[0].roles };
+        const roles = convertStringRolesToArray(rows[0].roles)
+        const decodedUser = { id: rows[0].id, roles: roles};
+
         if (scopes) {
           for (const scope of scopes) {
             if (!decodedUser.roles || !decodedUser.roles.includes(scope)) {

@@ -3,6 +3,9 @@
 import { Pool } from 'pg'
 import * as fs from 'fs'
 
+import dotenv from 'dotenv'
+dotenv.config()
+
 const pool = new Pool({
   host: 'localhost',
   port: 5432,

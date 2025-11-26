@@ -7,6 +7,7 @@ import {
   Route,
   Get,
   Request,
+  Query
 } from 'tsoa'
 import { Authenticated, Credentials, GoogleToken, NewUser, User } from '.'
 import { AuthService } from './service'
@@ -49,6 +50,31 @@ export class AuthController extends Controller {
       console.error('Error during authcontroller:', error);
       this.setStatus(500);
       return;
+    }
+  }
+
+  @Get('checkRole')
+  @Security("jwt")
+  @Response('401', 'Unauthorized')
+  public async checkRole(
+    @Request() request: Express.Request,
+    @Query() scope?: string
+  ): Promise<SessionUser | undefined> {
+    const user = request.user as SessionUser;
+
+    const userScope = user.roles || undefined
+
+    const noScopeSetDefaultTo200 = !scope
+    if (noScopeSetDefaultTo200) {
+      this.setStatus(200)
+      return user
+    }
+
+    if (userScope?.includes(scope)) {
+      this.setStatus(200); 
+      return user
+    } else {
+      this.setStatus(401); 
     }
   }
 

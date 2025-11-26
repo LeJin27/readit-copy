@@ -8,7 +8,8 @@ import {
   Int
 } from "type-graphql"
 import { Request } from "express"
-import { MobService } from "./service";
+import { CommunityService } from "./service";
+import { Community } from "./schema";
 
 
 @Resolver()
@@ -18,6 +19,24 @@ export class CommunityResolver {
   dummy(): string {
     return "OK";
   }
+
+  @Authorized('user')
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  @Query(() => [Community])
+  async getAll(
+    @Ctx() Request: Request 
+  ): Promise<Community[]> {
+    const user = Request.user?.id
+    const communities = await new CommunityService().getAll();
+    return communities;
+
+  }
+
+
+
+
+
+
   /*
 
   @Authorized('user')

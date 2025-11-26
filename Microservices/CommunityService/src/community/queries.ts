@@ -1,13 +1,9 @@
 export const getAll =
 `
-SELECT id, data
-FROM mob
-`
-
-export const getCount =
-`
-SELECT COUNT(*) 
-FROM mob
+SELECT 
+id, 
+name
+FROM community_view
 `
 
 

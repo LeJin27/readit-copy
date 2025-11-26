@@ -131,3 +131,31 @@ test("409: User email already exists for signup", async () => {
     .send(signUpCredentials)
     .expect(409);
 });
+
+test("401: User does not contain admin role", async () => {
+  const accessToken = await getLoginAccessToken(validCredentials);
+
+  await supertest(server)
+    .get("/api/v0/auth/checkRole")
+    .query({scope : "admin"})
+    .set("Authorization", "Bearer " + accessToken)
+    .expect(401);
+});
+
+test("200: User checks for correct role (user)", async () => {
+  const accessToken = await getLoginAccessToken(validCredentials);
+
+  await supertest(server)
+    .get("/api/v0/auth/checkRole")
+    .query({scope : "user"})
+    .set("Authorization", "Bearer " + accessToken)
+    .expect(200);
+});
+test("200: No scope provided defaults to 200", async () => {
+  const accessToken = await getLoginAccessToken(validCredentials);
+
+  await supertest(server)
+    .get("/api/v0/auth/checkRole")
+    .set("Authorization", "Bearer " + accessToken)
+    .expect(200);
+});

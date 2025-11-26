@@ -5,7 +5,7 @@ export type UUID = string;
 
 export interface SessionUser {
   id: string,
-  roles?: string
+  roles?: string[]
 }
 
 /** 
