@@ -34,16 +34,16 @@ test('should resolve with user data when fetch returns 200', async () => {
       Promise.resolve({
         id: 'user123',
         name: 'John Doe',
-        role: 'admin',
+        role: ['user'],
       }),
   });
 
   const authHeader = 'Bearer mockToken';
   const authService = new AuthService();
-  const result = await authService.validJwt(authHeader);
+  const result = await authService.check(authHeader, ['user']);
   console.log(result)
 
-  expect(global.fetch).toHaveBeenCalledWith('http://localhost:3010/api/v0/auth/validJwt', {
+  expect(global.fetch).toHaveBeenCalledWith('http://localhost:3010/api/v0/auth/check?scope=user', {
     method: 'GET',
     headers: {
       Authorization: 'Bearer mockToken',

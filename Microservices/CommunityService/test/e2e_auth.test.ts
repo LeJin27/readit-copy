@@ -19,9 +19,19 @@ afterAll(async() => {
 });
 
 
-test("GET all communities", async () => {
-  vi.spyOn(AuthService.prototype, "check")
-    .mockResolvedValue({ id: "test-user" });
+test("GET all communities if contains user role", async () => {
+  const url = "http://localhost:3010/api/v0/auth/login"
+  const response = await fetch(url.toString(), {
+      method: "POST",
+      headers: {
+      "Content-Type": "application/json", 
+      },
+      body: JSON.stringify({email: "molly@books.com", password: "mollymember"}),
+  });
+  const json = await response.json();
+  console.log(json)
+  const token = json.accessToken;
+
 
   const query = `
     query {
@@ -34,36 +44,11 @@ test("GET all communities", async () => {
 
   const res = await request(server)
     .post("/graphql")
-    .send({ query });
+    .send({ query })
+    .set("Authorization", "Bearer " + token)
 
-  console.log(res.body);
-
+  console.log(JSON.stringify(res.body, null, 2));
 });
-
-
-
-
-test("Unauthorized error", async () => {
-  vi.spyOn(AuthService.prototype, "check")
-    .mockRejectedValue(new Error("Unauthorized"));
-
-  const query = `
-    query {
-      getAll {
-        id
-        name
-      }
-    }
-  `;
-
-  const res = await request(server)
-    .post("/graphql")
-    .send({ query });
-
-  console.log(res.body);
-
-});
-
 
 
 

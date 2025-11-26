@@ -1,24 +1,32 @@
-import { SessionUser } from '../../types/index';
+import { SessionUser } from "../../types/index";
 
 export class AuthService {
-  public async check(authHeader?: string): Promise<SessionUser> {
-    return new Promise((resolve, reject) => {
-      const token = authHeader?.split(' ')[1]
-      fetch('http://localhost:3010/api/v0/auth/validJwt', {
-        method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        }
-      })
-        .then(response => {
-          if (response.status != 200) {
-            reject('Unauthorized')
-          }
-          return response.json()
-        }
-        )
-        .then(data => resolve(data))
-        .catch(error => reject(error))
-    })
+  public async check(
+    authHeader?: string,
+    scopes?: string[]
+  ): Promise<SessionUser> {
+    const token = authHeader?.split(" ")[1];
+
+    const url = new URL("http://localhost:3010/api/v0/auth/check");
+
+    if (scopes) {
+      for (const scope of scopes) {
+        url.searchParams.append("scope", scope);
+      }
+    }
+    console.log(url.toString())
+
+    const response = await fetch(url.toString(), {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (response.status !== 200) {
+      throw new Error("Unauthorized");
+    }
+
+    return response.json();
   }
 }

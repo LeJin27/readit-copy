@@ -27,6 +27,7 @@ export class CommunityResolver {
     @Ctx() Request: Request 
   ): Promise<Community[]> {
     const user = Request.user?.id
+
     const communities = await new CommunityService().getAll();
     return communities;
 

@@ -53,29 +53,40 @@ export class AuthController extends Controller {
     }
   }
 
-  @Get('checkRole')
+  @Get('check')
   @Security("jwt")
   @Response('401', 'Unauthorized')
-  public async checkRole(
+  public async check(
     @Request() request: Express.Request,
-    @Query() scope?: string
+    @Query() scope?: string[]
   ): Promise<SessionUser | undefined> {
     const user = request.user as SessionUser;
 
     const userScope = user.roles || undefined
 
-    const noScopeSetDefaultTo200 = !scope
-    if (noScopeSetDefaultTo200) {
+    const noScopeRequirement = !scope
+    if (noScopeRequirement) {
       this.setStatus(200)
       return user
     }
 
-    if (userScope?.includes(scope)) {
-      this.setStatus(200); 
-      return user
-    } else {
-      this.setStatus(401); 
+    const undefinedUserRole = !userScope;
+    if (undefinedUserRole) {
+      this.setStatus(401);
+      return;
     }
+    const hasAllowedRole = scope.some((s) => userScope.includes(s));
+
+    if (hasAllowedRole) {
+      this.setStatus(200);
+      return user;
+    } else {
+      this.setStatus(401);
+      return;
+    }
+
+
+
   }
 
   @Get('userInfo')

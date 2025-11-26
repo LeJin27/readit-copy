@@ -136,18 +136,19 @@ test("401: User does not contain admin role", async () => {
   const accessToken = await getLoginAccessToken(validCredentials);
 
   await supertest(server)
-    .get("/api/v0/auth/checkRole")
-    .query({scope : "admin"})
+    .get("/api/v0/auth/check")
+    .query({scope : ["admin"]})
     .set("Authorization", "Bearer " + accessToken)
     .expect(401);
+  
 });
 
 test("200: User checks for correct role (user)", async () => {
   const accessToken = await getLoginAccessToken(validCredentials);
 
   await supertest(server)
-    .get("/api/v0/auth/checkRole")
-    .query({scope : "user"})
+    .get("/api/v0/auth/check")
+    .query({scope : ["user", "admin"]})
     .set("Authorization", "Bearer " + accessToken)
     .expect(200);
 });
@@ -155,7 +156,7 @@ test("200: No scope provided defaults to 200", async () => {
   const accessToken = await getLoginAccessToken(validCredentials);
 
   await supertest(server)
-    .get("/api/v0/auth/checkRole")
+    .get("/api/v0/auth/check")
     .set("Authorization", "Bearer " + accessToken)
     .expect(200);
 });
