@@ -8,5 +8,8 @@ CREATE VIEW community_view
 AS
 SELECT
 id,
-data->>'name' AS name
+data->>'name' AS name,
+data->>'created_at' AS created_at,
+data->>'created_by' AS created_by,
+data->>'description' AS description
 FROM community;

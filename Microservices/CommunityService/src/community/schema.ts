@@ -9,5 +9,15 @@ export class Community {
 
   @Field(type => String)
   name!: string;
+
+  @Field(type => String)
+  @IsDateString()
+  created_at!: string;
+
+  @Field(type => String)
+  created_by!: string;
+
+  @Field(type => String)
+  description!: string;
 }
 

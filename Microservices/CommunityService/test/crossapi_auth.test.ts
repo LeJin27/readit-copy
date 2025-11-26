@@ -19,7 +19,7 @@ afterAll(async() => {
 });
 
 
-test("GET all communities if contains user role", async () => {
+test("GET all communities if contains User role", async () => {
   const url = "http://localhost:3010/api/v0/auth/login"
   const response = await fetch(url.toString(), {
       method: "POST",
@@ -31,7 +31,6 @@ test("GET all communities if contains user role", async () => {
   const json = await response.json();
   console.log(json)
   const token = json.accessToken;
-
 
   const query = `
     query {
@@ -49,6 +48,5 @@ test("GET all communities if contains user role", async () => {
 
   console.log(JSON.stringify(res.body, null, 2));
 });
-
 
 

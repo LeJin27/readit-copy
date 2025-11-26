@@ -19,3 +19,11 @@ export interface User {
   email: email;
   name: string;
 }
+
+export interface Community {
+  id: string;
+  name: string;
+  created_by: string;
+  created_at: string;
+  description: string;
+}

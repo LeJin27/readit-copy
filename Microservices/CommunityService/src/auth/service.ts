@@ -9,6 +9,7 @@ export class AuthService {
 
     const url = new URL("http://localhost:3010/api/v0/auth/check");
 
+    //checking for user roles (liek admin etc)
     if (scopes) {
       for (const scope of scopes) {
         url.searchParams.append("scope", scope);

@@ -5,6 +5,7 @@ import { AuthService } from "./service"
 
 export const expressAuthChecker: AuthChecker<Request> = async (
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // second argument is always dedicated to authorization
   { root, args, context, info }, scopes) => {
   try {
     context.user = await new AuthService().check(context.headers.authorization, scopes)

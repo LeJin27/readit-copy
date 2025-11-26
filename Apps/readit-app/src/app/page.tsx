@@ -3,12 +3,16 @@ import {
   AppShell,
   AppShellHeader,
   AppShellMain,
+  AppShellNavbar,
+  Grid,
+  GridCol,
   Group,
   Text,
   Title,
 } from "@mantine/core";
 import Image from "next/image";
 import { AppHeader } from "./components/appheader";
+import { CommunitiesNavbar } from "./community/components/communities_navbar";
 
 export default function Home() {
   return (
@@ -26,23 +30,13 @@ export default function Home() {
           />
         </Group>
       </AppShellHeader>
-      <AppShellMain>
-        <Title className="text-center mt-20">Welcome to test</Title>
-        <Text
-          className="text-center text-gray-700 dark:text-gray-300 max-w-[500px] mx-auto mt-xl"
-          ta="center"
-          size="lg"
-          maw={580}
-          mx="auto"
-          mt="xl"
-        >
-          This starter Next.js project includes a minimal setup for Mantine with
-          TailwindCSS. To get started edit page.tsx file.
-        </Text>
 
-        <div className="flex justify-center mt-10">
-          <ColorSchemesSwitcher />
-        </div>
+        <AppShellNavbar>
+          <CommunitiesNavbar/>
+        </AppShellNavbar>
+
+      <AppShellMain>
+
       </AppShellMain>
     </AppShell>
   );

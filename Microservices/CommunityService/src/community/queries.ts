@@ -2,7 +2,10 @@ export const getAll =
 `
 SELECT 
 id, 
-name
+name,
+created_at,
+created_by,
+description
 FROM community_view
 `
 

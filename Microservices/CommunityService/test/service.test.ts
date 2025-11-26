@@ -28,6 +28,9 @@ test("GET all communities", async () => {
       getAll {
         id
         name
+        created_at
+        created_by
+        description
       }
     }
   `;
@@ -36,7 +39,9 @@ test("GET all communities", async () => {
     .post("/graphql")
     .send({ query });
 
-  console.log(res.body);
+  console.log(res.body.data);
+  const data = res.body.data
+  expect(data.getAll.length == 2)
 
 });
 
