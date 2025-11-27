@@ -15,7 +15,7 @@ import {
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { upperFirst } from "@mantine/hooks";
-import { loginAction } from "../action";
+import { loginAction } from "../../../login/action";
 import { useRouter } from "next/navigation";
 //import { GoogleButton } from './GoogleButton';
 //import { TwitterButton } from './TwitterButton';

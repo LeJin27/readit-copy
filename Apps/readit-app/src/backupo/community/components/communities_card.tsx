@@ -2,9 +2,10 @@
 "use client";
 
 import { IconHome2 } from "@tabler/icons-react";
-import {NavLink } from "@mantine/core";
+import {Box, Center, Container, NavLink } from "@mantine/core";
 import React from "react";
-import { Community } from "@/types";
+import { getAll } from "../actions";
+import { Community } from "../../types";
 
 
 type CommunitiesCardProps = {
@@ -12,6 +13,11 @@ type CommunitiesCardProps = {
 };
 
 export function CommunitiesCard({ community }: CommunitiesCardProps) {
+
+
+
+
+
 
   return (
         <NavLink

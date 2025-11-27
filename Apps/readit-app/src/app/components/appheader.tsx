@@ -5,15 +5,13 @@ import {
   IconCirclePlusFilled,
   IconCookieManFilled,
 } from "@tabler/icons-react";
-import { Autocomplete, Box, Burger, Button, Group } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
+import { Autocomplete, Box, Button, Group } from "@mantine/core";
 import { logoutAction } from "../login/action";
 import { useRouter } from "next/navigation";
 
 
 
 export function AppHeader() {
-  const [opened, { toggle }] = useDisclosure(false);
   const router = useRouter();
 
   const handleSignout = async() =>{ 
@@ -50,20 +48,17 @@ export function AppHeader() {
 
   return (
     <header>
-      <Group>
-        <Burger opened={opened} onClick={toggle} size="sm" hiddenFrom="sm" />
-      </Group>
 
       <Group>
-        <Group ml={50} gap={5} visibleFrom="sm">
-          {items}
-        </Group>
         <Autocomplete
           placeholder="Search Readit"
           leftSection={<IconSearch size={16} stroke={1.5} />}
           data={historyAutoComplete}
           visibleFrom="xs"
         />
+        <Group ml={50} gap={5} visibleFrom="sm">
+          {items}
+        </Group>
       </Group>
     </header>
   );
