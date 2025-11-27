@@ -17,7 +17,7 @@ import {
 import theme from "./theme";
 import "./globals.css";
 import { AppHeader } from "./components/appheader";
-import { CommunitiesNavbar } from "./community/components/communities_navbar";
+import { CommunitiesNavbar } from "./(default)/community/components/communities_navbar";
 
 export const metadata: Metadata = {
   title: "Next App Mantine Tailwind Template",

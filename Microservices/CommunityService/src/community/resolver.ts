@@ -10,6 +10,7 @@ import {
 import { Request } from "express"
 import { CommunityService } from "./service";
 import { Community } from "./schema";
+import { error } from "console";
 
 
 @Resolver()
@@ -29,6 +30,20 @@ export class CommunityResolver {
     const user = Request.user?.id
 
     const communities = await new CommunityService().getAll();
+    return communities;
+
+  }
+
+  @Authorized('user')
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  @Query(() => Community)
+  async getById(
+    @Ctx() Request: Request,
+    @Arg("id", () => String) id: string
+  ): Promise<Community> {
+    const user = Request.user?.id
+
+    const communities = await new CommunityService().getById(id);
     return communities;
 
   }

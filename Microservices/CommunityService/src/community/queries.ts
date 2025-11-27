@@ -9,6 +9,18 @@ description
 FROM community_view
 `
 
+export const getById =
+`
+SELECT 
+id, 
+name,
+created_at,
+created_by,
+description
+FROM community_view
+WHERE id = $1
+`
+
 
 export const createMob = 
 `

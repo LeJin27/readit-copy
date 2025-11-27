@@ -15,7 +15,7 @@ import {
   Title,
 } from "@mantine/core";
 import { AppHeader } from "../components/appheader";
-import { CommunitiesNavbar } from "../community/components/communities_navbar";
+import { CommunitiesNavbar } from "./community/components/communities_navbar";
 import type { ReactNode } from "react";
 
 

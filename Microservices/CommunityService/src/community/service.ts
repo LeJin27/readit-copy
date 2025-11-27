@@ -13,4 +13,14 @@ export class CommunityService {
     const { rows } = await pool.query(query);
     return rows;
   }
+
+  public async getById(id : string): Promise<Community> {
+    const query = {
+      text: queries.getById,
+      values: [id],
+    };
+
+    const { rows } = await pool.query(query);
+    return rows[0];
+  }
 }

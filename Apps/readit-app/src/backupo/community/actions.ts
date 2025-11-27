@@ -1,7 +1,7 @@
 "use server";
 
 import { cookies } from "next/headers";
-import { Community } from "../types";
+import { Community } from "@/types";
 import { CommunityService } from "@/service/community/service";
 
 export async function getAll(): Promise<Community[]> {
