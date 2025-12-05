@@ -19,6 +19,15 @@ export class Community {
 
   @Field(type => String)
   description!: string;
+
+  @Field(type => String)
+  privacy!: string;
+
+  @Field(type => [String], { nullable: true })
+  tags?: string[]
+
+  @Field(type => String, { nullable: true })
+  image_url?: string
 }
 
 

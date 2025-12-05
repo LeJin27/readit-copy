@@ -11,7 +11,9 @@ VALUES (
     'name','test_community_1',
     'created_by', 'e5944bb4-de67-4932-9c7a-9a07f95ed7c1',
     'created_at', '2025-04-25T09:30:00Z',
-    'description', 'This is a coomunity pog'
+    'description', 'This is a coomunity pog',
+    'privacy', 'private',
+    'tags', jsonb_build_array('cool', 'darkest dungeon')
 
   )
 );
@@ -23,6 +25,7 @@ VALUES (
     'name','test_community_2',
     'created_by', 'e5944bb4-de67-4932-9c7a-9a07f95ed7c1',
     'created_at', '2025-04-25T09:30:00Z',
-    'description', 'This is a coomunity second too'
+    'description', 'This is a coomunity second too',
+    'privacy', 'private'
   )
 );

@@ -73,6 +73,9 @@ export class CommunityService {
           description
           created_at
           created_by
+          privacy
+          image_url
+          tags
         }
       }
     `;

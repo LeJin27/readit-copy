@@ -9,7 +9,11 @@ export interface CommunityData {
   created_at: string;
   created_by: string;
   description: string;
+  privacy: string;
+  tags: string[];
+  image_url: string;
 }
+
 export interface CommunityRow {
   id: string;
   data: CommunityData;

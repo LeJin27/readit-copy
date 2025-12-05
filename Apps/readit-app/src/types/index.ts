@@ -26,6 +26,9 @@ export interface Community {
   created_by: string;
   created_at: string;
   description: string;
+  privacy: string;
+  tags?: string[];
+  image_url?: string;
 }
 
 export type GraphQLVariables = Record<string, unknown>;

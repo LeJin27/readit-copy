@@ -14,7 +14,11 @@ export class CommunityService {
       description: row.data.description,
       created_at: row.data.created_at,
       created_by: row.data.created_by,
+      privacy: row.data.privacy,
+      tags: row.data.tags || undefined,
+      image_url: row.data.image_url || undefined,
     }))
+    console.log(retCommunity)
     return retCommunity;
   }
 
