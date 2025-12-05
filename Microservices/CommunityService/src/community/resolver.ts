@@ -9,7 +9,7 @@ import {
 } from "type-graphql"
 import { Request } from "express"
 import { CommunityService } from "./service";
-import { Community } from "./schema";
+import { Community, NewCommunity } from "./schema";
 import { error } from "console";
 
 
@@ -46,6 +46,26 @@ export class CommunityResolver {
     const communities = await new CommunityService().getById(id);
     return communities;
 
+  }
+
+
+  @Authorized('user')
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  @Mutation(() => Community)
+  async create(
+    @Ctx() Request: Request,
+    @Arg("NewCommunityArg", () => NewCommunity) newCommunity: NewCommunity
+  ): Promise<Community> {
+    console.log("called once")
+
+    const user = Request.user?.id
+
+    const communityRes = await new CommunityService().create(user, newCommunity)
+    console.log(communityRes)
+
+
+
+    return communityRes;
   }
 
 

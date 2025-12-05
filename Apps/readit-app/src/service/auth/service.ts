@@ -33,7 +33,7 @@ export class AuthService {
     });
 
     if (response.status !== 200) {
-      console.log(response.status);
+      //console.log(response.status);
       throw new Error(response.statusText);
     }
   }

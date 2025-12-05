@@ -2,36 +2,29 @@ export const getAll =
 `
 SELECT 
 id, 
-name,
-created_at,
-created_by,
-description
-FROM community_view
+data
+FROM community
 `
 
 export const getById =
 `
 SELECT 
 id, 
-name,
-created_at,
-created_by,
-description
-FROM community_view
+data
+FROM community
 WHERE id = $1
 `
 
 
-export const createMob = 
+export const create = 
 `
-INSERT INTO mob(data) 
+INSERT INTO community(data) 
 VALUES (
   jsonb_build_object(
-    'name', $1::text,
-    'size', $2::numeric,
-    'image', $3::text,
-    'description', $4::text,
-    'last_update', $5::text
+    'created_by', $1::text,
+    'name', $2::text,
+    'description', $3::text,
+    'created_at', NOW()::text
   )
 )
 RETURNING id, data;

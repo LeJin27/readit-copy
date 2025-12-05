@@ -21,3 +21,13 @@ export class Community {
   description!: string;
 }
 
+
+@InputType()
+export class NewCommunity {
+
+  @Field(type => String)
+  name!: string;
+
+  @Field(type => String)
+  description!: string;
+}
