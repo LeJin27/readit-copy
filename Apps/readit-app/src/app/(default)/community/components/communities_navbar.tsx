@@ -71,6 +71,7 @@ export function CommunitiesNavbar() {
     const setCommunityData = async () => {
       const list = await getAll();
       if (list) {
+        //setCommunities(list.slice(0,5));
         setCommunities(list);
       }
     };
@@ -83,6 +84,8 @@ export function CommunitiesNavbar() {
       <NavCreateCommunity/>
       {mainNavItems}
 
+
+      Your Favorites
       {communities.map((c) => communityCard(c))}
     </Box>
   );

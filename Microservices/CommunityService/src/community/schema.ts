@@ -39,4 +39,7 @@ export class NewCommunity {
 
   @Field(type => String)
   description!: string;
+
+  @Field(type => String)
+  privacy!: string;
 }

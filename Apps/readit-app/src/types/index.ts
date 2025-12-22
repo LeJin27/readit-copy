@@ -31,4 +31,10 @@ export interface Community {
   image_url?: string;
 }
 
+export interface NewCommunity {
+  name: string;
+  description: string;
+  privacy: string;
+}
+
 export type GraphQLVariables = Record<string, unknown>;

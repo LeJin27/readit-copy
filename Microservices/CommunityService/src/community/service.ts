@@ -18,7 +18,7 @@ export class CommunityService {
       tags: row.data.tags || undefined,
       image_url: row.data.image_url || undefined,
     }))
-    console.log(retCommunity)
+    //console.log(retCommunity)
     return retCommunity;
   }
 
@@ -49,7 +49,7 @@ export class CommunityService {
   public async create(userId : string | undefined, newCommunity : NewCommunity): Promise<Community> {
     const query = {
       text: queries.create,
-      values: [userId, newCommunity.name, newCommunity.description],
+      values: [userId, newCommunity.name, newCommunity.description, newCommunity.privacy],
     };
 
     const { rows } = await pool.query(query);

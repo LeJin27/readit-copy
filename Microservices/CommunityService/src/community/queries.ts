@@ -24,6 +24,7 @@ VALUES (
     'created_by', $1::text,
     'name', $2::text,
     'description', $3::text,
+    'privacy', $4::text,
     'created_at', NOW()::text
   )
 )

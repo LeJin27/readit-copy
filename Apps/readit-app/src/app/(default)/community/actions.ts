@@ -1,7 +1,7 @@
 "use server";
 
 import { cookies } from "next/headers";
-import { Community } from "../../../types";
+import { Community, NewCommunity } from "../../../types";
 import { CommunityService } from "../../../service/community/service";
 
 export async function getAll(): Promise<Community[]> {
@@ -13,4 +13,10 @@ export async function getById(id: string): Promise<Community> {
   const cookie = (await cookies()).get('session')?.value
   const communities = new CommunityService().getById(id, cookie);
   return communities;
+}
+
+export async function create(newCommunity: NewCommunity): Promise<Community> {
+  const cookie = (await cookies()).get('session')?.value
+  const createdCommunity = new CommunityService().create(newCommunity, cookie);
+  return createdCommunity;
 }

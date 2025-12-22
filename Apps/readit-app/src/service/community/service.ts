@@ -1,5 +1,6 @@
-import { Community, GraphQLVariables } from "../../types";
+import { Community, GraphQLVariables, NewCommunity } from "../../types";
 
+const url = "http://localhost:4020/graphql";
 export class CommunityService {
   private async helperGraphFetch<
     TResponse,
@@ -10,10 +11,10 @@ export class CommunityService {
     variables?: TVariables,
   ): Promise<TResponse> {
     const url = "http://localhost:4020/graphql";
-    console.log(
-  "GraphQL request body:",
-  JSON.stringify({ query, variables }, null, 2),
-);
+    //console.log(
+    //  "GraphQL request body:",
+    //  JSON.stringify({ query, variables }, null, 2),
+    //);
 
     const response = await fetch(url, {
       method: "POST",
@@ -26,7 +27,6 @@ export class CommunityService {
         variables,
       }),
     });
-
 
     if (response.status !== 200) {
       throw new Error("Unauthorized");
@@ -48,7 +48,7 @@ export class CommunityService {
     return json.data;
   }
 
-  public async getAll(cookie: string | undefined) {
+  public async getAll(cookie: string | undefined): Promise<Community[]> {
     const query = `
     query {
       getAll {
@@ -58,13 +58,21 @@ export class CommunityService {
       }
     }
   `;
-    const data = await this.helperGraphFetch<{ getAll: Community[] }>(
-      cookie,
-      query,
-    );
-    return data.getAll;
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        ...(cookie && { Authorization: `Bearer ${cookie}` }),
+      },
+      body: JSON.stringify({
+        query,
+      }),
+    })
+    const responseJson  =  await response.json()
+    return responseJson.data.getAll
+
   }
-  public async getById(id: string, cookie?: string) {
+  public async getById(idVar: string, cookie?: string) {
     const query = `
       query($id: String!) {
         getById(id: $id) {
@@ -80,15 +88,53 @@ export class CommunityService {
       }
     `;
 
-    // can be anythign but it shoudl sut contain our variables
-    type genericVars = { id: string };
-
-    const data = await this.helperGraphFetch<{ getById: Community }, genericVars>(
-      cookie,
-      query,
-      { id },
-    );
-
-    return data.getById;
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        ...(cookie && { Authorization: `Bearer ${cookie}` }),
+      },
+      body: JSON.stringify({
+        query, variables: {
+          id: idVar
+        }
+      }),
+    })
+    const responseJson  =  await response.json()
+    return responseJson.data.getById
   }
+
+  
+  public async create(newCommunity: NewCommunity, cookie?: string) {
+    const query = `
+      mutation ($inputArg: NewCommunity!) {
+        create (NewCommunityArg: $inputArg){
+          id
+          name
+          created_at
+          created_by
+          description
+        }
+      }
+    `;
+
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        ...(cookie && { Authorization: `Bearer ${cookie}` }),
+      },
+      body: JSON.stringify({
+        query, variables: {
+          inputArg: newCommunity
+        }
+      }),
+    })
+    const responseJson  =  await response.json()
+    console.log(responseJson)
+    return responseJson.data.create
+
+    // can be anythign but it shoudl sut contain our variables
+  }
+  
 }

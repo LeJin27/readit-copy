@@ -105,11 +105,11 @@ test("GET communities by id", async () => {
 });
 
 
-async function getAllHelper(): Promise<Community[]> {
-  vi.spyOn(AuthService.prototype, "check")
+async function getAllHelper() : Promise <Community[]>{
+    vi.spyOn(AuthService.prototype, "check")
     .mockResolvedValue({ id: "test-user" });
 
-    const query = `
+  const query = `
     query {
       getAll {
         id
@@ -117,9 +117,9 @@ async function getAllHelper(): Promise<Community[]> {
         created_at
         created_by
         description
+        privacy
         tags
         image_url
-        privacy
       }
     }
   `;
@@ -128,19 +128,22 @@ async function getAllHelper(): Promise<Community[]> {
     .post("/graphql")
     .send({ query });
 
+  console.log(res.body)
+  console.dir(res.body.data, { depth: null });
   const data = res.body.data
-  return data.getAll
+  const allCommunities = data.getAll
+  return allCommunities
 }
 
-/*
+
 test("Create new community", async () => {
   vi.spyOn(AuthService.prototype, "check")
     .mockResolvedValue({ id: "test-user" });
   
 
   let query = `
-    mutation ($input: NewCommunity!) {
-      create (NewCommunityArg: $input){
+    mutation ($inputArg: NewCommunity!) {
+      create (NewCommunityArg: $inputArg){
         id
         name
         created_at
@@ -154,14 +157,17 @@ test("Create new community", async () => {
     .post("/graphql")
     .send({ query, 
       variables: {
-      input: {
-        name: "poggg",
-        description: "wowow",
-      }
+        inputArg: {
+          name: "poggg",
+          description: "wowow",
+          privacy: "private"
+        }
     }});
 
 
-  console.log(JSON.stringify(res.body, null, 2));
+    console.log(res.body)
+  //console.log(JSON.stringify(res.body, null, 2));
+
   expect(res.body.data.create.name).toBe("poggg")
 
   const data = await getAllHelper()
@@ -169,4 +175,3 @@ test("Create new community", async () => {
 
 
 });
-*/
