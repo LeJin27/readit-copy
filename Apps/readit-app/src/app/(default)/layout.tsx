@@ -21,8 +21,9 @@ import type { ReactNode } from "react";
 
 export default function Layout({ children } : {children: ReactNode}) {
   return (
-    <AppShell header={{ height: 60 }} navbar={{
-        width: 300,
+    <AppShell header={{ height: 60 }} 
+    navbar={{
+        width: "20%",
         breakpoint: 'sm',
       }}
       padding="md">

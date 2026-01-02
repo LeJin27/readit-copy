@@ -7,7 +7,7 @@ import {
   IconGauge,
   IconHome,
 } from "@tabler/icons-react";
-import { Box, Center, Container, NavLink } from "@mantine/core";
+import { Box, Center, Container, NavLink, Typography } from "@mantine/core";
 import React from "react";
 import { getAll } from "../actions";
 import { Community } from "@/types";
@@ -31,6 +31,7 @@ export function CommunitiesNavbar() {
     { icon: IconActivity, label: "Activity" },
     { icon: IconActivity, label: "Start a Community", cannotBeActive: true },
   ];
+  const offSetIndexForFavorites = data.length;
 
   const mainNavItems = data.map((item, index) => {
     return (
@@ -50,19 +51,22 @@ export function CommunitiesNavbar() {
     );
   });
 
-  const communityCard = (community: Community) => {
+  const communityCard = (community: Community, index : number) => {
     const handleClick = (id: string) => {
       router.push("/community/" + id);
-      setActive(-1)
     };
     return (
       <NavLink
         key={community.id}
         label={community.description}
+        href="#required-for-focus"
+        active={index === active}
         onClick={() => {
+          setActive(index);
           handleClick(community.id);
         }}
         leftSection={<IconHome size={16} stroke={1.5} />}
+        
       />
     );
   };
@@ -85,8 +89,8 @@ export function CommunitiesNavbar() {
       {mainNavItems}
 
 
-      Your Favorites
-      {communities.map((c) => communityCard(c))}
+      <Typography>Recent</Typography>
+      {communities.map((c, index) => communityCard(c, index + offSetIndexForFavorites))}
     </Box>
   );
 }
