@@ -8,6 +8,9 @@
   "scripts": {
     "dev-auth": "cd AuthService && npm run dev",
     "dev-mob": "cd MobService && npm run dev",
+    "docker-compose-community": "cd CommunityService && docker-compose up -d",
+    "docker-compose-auth": "cd Authservice && docker-compose up -d",
+    "docker-compose": "npm run docker-compose-community && npm run docker-compose-auth",
     "dev": "concurrently \"npm run dev-auth\" \"npm run dev-mob\" "
   },
   "devDependencies": {
